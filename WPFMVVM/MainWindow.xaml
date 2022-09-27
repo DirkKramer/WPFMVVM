@@ -3,10 +3,36 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPFMVVM"
+        xmlns:local="clr-namespace:WPFMVVM" 
+        xmlns:viewmodels="clr-namespace:WPFMVVM.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
+        Name="window"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
 
+        <ListView ItemsSource="{Binding Costumers}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name }"></TextBlock>
+                        <TextBlock Text="{Binding Age }"></TextBlock>
+                        <TextBlock Text="{Binding CostumerId }"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        <Button 
+            Grid.Row="1" 
+            Command="{Binding AddCostumerCommand}"
+            Content="ChangeHeader" 
+            Height="30">
+            
+        </Button>
     </Grid>
 </Window>
