@@ -10,7 +10,9 @@ global using System.Threading.Tasks;
 global using System.Windows;
 global using WPFMVVM.ViewModels;
 global using WPFMVVM.Views;
+global using WPFMVVM.Services;
 global using WPFMVVM.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WPFMVVM
 {
@@ -19,12 +21,25 @@ namespace WPFMVVM
     /// </summary>
     public partial class App : Application
     {
+        public ServiceProvider serviceProvider;
+        public App()
+        {
+            ServiceCollection serviceDescriptors = new ServiceCollection();
+            serviceDescriptors.AddSingleton<MainWindow>();
+            serviceDescriptors.AddSingleton<DatabaseService>();
+            serviceDescriptors.AddSingleton<MainViewModel>();
+            serviceDescriptors.AddScoped<CostumerViewModel>();
+            serviceDescriptors.AddScoped<CostumerWindow>();
+
+
+            serviceProvider = serviceDescriptors.BuildServiceProvider();
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            var mainwindow =new MainWindow();
-            mainwindow.DataContext = new MainViewModel();
+            var mainwindow = serviceProvider.GetService<MainWindow>();
             mainwindow.ShowDialog();
         }
     }

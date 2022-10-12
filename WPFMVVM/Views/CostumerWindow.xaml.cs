@@ -19,8 +19,9 @@ namespace WPFMVVM.Views
     /// </summary>
     public partial class CostumerWindow : Window
     {
-        public CostumerWindow()
+        public CostumerWindow(CostumerViewModel vm)
         {
+            this.DataContext = vm;
             InitializeComponent();
         }
     }

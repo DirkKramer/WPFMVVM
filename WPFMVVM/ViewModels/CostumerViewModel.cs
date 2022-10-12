@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFMVVM.Services;
 
 namespace WPFMVVM.ViewModels
 {
     public partial class CostumerViewModel : ObservableObject
     {
+        DatabaseService databaseService;
+        public CostumerViewModel(DatabaseService databaseService)
+        {
+            this.databaseService = databaseService;
+        }
         [ObservableProperty]
         string costumerName;
 
